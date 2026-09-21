@@ -1,0 +1,414 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+
+/* --- LIGHT MODE (DEFAULT) --- */
+.home-offers-section {
+  width: 100%;
+  background: #f8fafc;
+  padding: 60px 20px;
+  box-sizing: border-box;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  transition: background-color 0.3s ease;
+}
+
+.home-offers-container {
+    width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* SECTION HEADING */
+.home-offers-heading {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.home-offers-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #059669;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+}
+
+.home-offers-heading h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 36px;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+  transition: color 0.3s ease;
+}
+
+.home-offers-heading p {
+  margin: 8px 0 0;
+  color: #64748b;
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+/* SLIDER WRAPPER */
+.home-offers-slider-wrapper {
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 10px 0;
+}
+
+/* TRACK - Smooth 1.2s slide transition when actually sliding */
+.home-offers-track {
+  display: flex;
+  width: 100%;
+  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* STATIC STATE - fewer offers than slidesToShow.
+   No sliding needed, so center the cards and let overflow
+   scroll on very small screens instead of hiding cards. */
+.home-offers-track.is-static {
+  justify-content: center;
+  flex-wrap: wrap;
+  transition: none;
+}
+
+/* SLIDE COLUMN */
+.home-offer-slide {
+  box-sizing: border-box;
+  padding: 0 12px;
+  max-width: 584px; /* 560px card + 24px padding, keeps static slides from over-growing */
+}
+
+/* MAIN CARD CONTAINER - Dual-color atmospheric gradient */
+.home-offer-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  padding: 22px 20px 24px 20px;
+  border-radius: 24px;
+  background: radial-gradient(circle at 50% 100%, #311b92 0%, #0d1117 75%, #05070a 100%);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  max-width: 560px;
+  min-height: 340px;
+  height: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.home-offer-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.85);
+}
+
+/* TOP BADGES */
+.offer-badge-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  width: 100%;
+  gap: 8px;
+}
+
+.offer-small-title {
+  color: #38bdf8;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 65%;
+}
+
+.home-offer-badge {
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* TRANSPARENT PNG CONTAINER */
+.home-offer-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 150px;
+  margin-bottom: 16px;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* PRODUCT IMAGE WITH CONTRAST SHADOW */
+.home-offer-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  mix-blend-mode: normal;
+  filter: drop-shadow(0px 18px 14px rgba(0, 0, 0, 0.8));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.home-offer-card:hover .home-offer-image {
+  transform: scale(1.04);
+  filter: drop-shadow(0px 24px 18px rgba(0, 0, 0, 0.9));
+}
+
+.home-offer-icon {
+  font-size: 50px;
+}
+
+/* BOTTOM DETAILS & TYPOGRAPHY */
+.home-offer-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.offer-product-name {
+  margin: 0 0 12px 0;
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.offer-price-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.offer-original-price {
+  color: #94a3b8;
+  font-size: 18px;
+  text-decoration: line-through;
+  font-weight: 500;
+}
+
+.offer-final-price {
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.offer-subtext {
+  margin: 0 0 20px 0;
+  color: #cbd5e1;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.home-offer-cta {
+  width: 100%;
+  background: #ffffff;
+  color: #0f172a;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.home-offer-cta:hover {
+  background: #38bdf8;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -5px rgba(56, 189, 248, 0.4);
+}
+
+/* DOT INDICATORS */
+.home-offers-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.home-offer-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background-color: #cbd5e1;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.home-offer-dot.active {
+  background-color: #38bdf8;
+  width: 26px;
+  border-radius: 10px;
+}
+
+/* --- DARK MODE OVERRIDES (.dark on <html>) --- */
+
+.dark .home-offers-section {
+  background: #090d16;
+}
+
+.dark .home-offers-label {
+  color: #34d399;
+  background: rgba(6, 78, 59, 0.4);
+  border-color: rgba(52, 211, 153, 0.25);
+}
+
+.dark .home-offers-heading h2 {
+  color: #f8fafc;
+}
+
+.dark .home-offers-heading p {
+  color: #94a3b8;
+}
+
+.dark .home-offer-card {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.9);
+}
+
+.dark .home-offer-dot {
+  background-color: #334155;
+}
+
+.dark .home-offer-dot.active {
+  background-color: #38bdf8;
+}
+
+/* SINGLE OFFER - HERO STYLE
+   When there's only 1 active offer, a small centered card looks
+   lost in all the empty space. Instead, make it wide and switch
+   to a horizontal (image left, details right) layout so it fills
+   the row properly and reads as an intentional banner. */
+.single-offer-slide {
+  max-width: 900px;
+  width: 100%;
+}
+
+.single-offer-card {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+  max-width: 100%;
+  min-height: 360px;
+  gap: 12px;
+  padding: 70px 48px 36px 48px;
+}
+
+.single-offer-card .home-offer-image-container {
+  width: 55%;
+  height: 320px;
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+.single-offer-card .home-offer-info {
+  align-items: flex-start;
+  text-align: left;
+  justify-content: center;
+  flex: 1;
+}
+
+.single-offer-card .offer-price-container {
+  justify-content: flex-start;
+}
+
+.single-offer-card .home-offer-cta {
+  width: auto;
+  padding: 14px 40px;
+}
+
+.single-offer-card .offer-badge-header {
+  position: absolute;
+  top: 24px;
+  left: 48px;
+  right: 48px;
+  width: auto;
+}
+
+@media (max-width: 768px) {
+  .single-offer-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px 20px;
+    gap: 12px;
+  }
+
+  .single-offer-card .home-offer-image-container {
+    width: 100%;
+    height: 150px;
+  }
+
+  .single-offer-card .home-offer-info {
+    align-items: center;
+    text-align: center;
+  }
+
+  .single-offer-card .offer-price-container {
+    justify-content: center;
+  }
+
+  .single-offer-card .offer-badge-header {
+    position: static;
+    margin-bottom: 16px;
+  }
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .home-offer-slide {
+    min-width: 100% !important;
+    flex: 0 0 100% !important;
+  }
+
+  .home-offers-track.is-static {
+    flex-wrap: nowrap;
+  }
+
+  .offer-product-name {
+    font-size: 22px;
+  }
+
+  .offer-final-price {
+    font-size: 28px;
+  }
+
+  .home-offer-image-container {
+    height: 130px;
+  }
+}

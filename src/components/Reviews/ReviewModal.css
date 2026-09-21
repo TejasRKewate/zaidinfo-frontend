@@ -1,0 +1,559 @@
+/* =========================================================
+   REVIEW MODAL OVERLAY
+========================================================= */
+
+.review-modal-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+
+    background:
+        rgba(15, 23, 42, 0.65);
+
+    backdrop-filter:
+        blur(6px);
+
+    -webkit-backdrop-filter:
+        blur(6px);
+
+    animation:
+        reviewOverlayIn
+        0.2s ease;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.review-modal {
+    width: 100%;
+
+    max-width: 560px;
+
+    max-height: 92vh;
+
+    overflow-y: auto;
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.8);
+
+    box-shadow:
+        0 25px 70px
+        rgba(0, 0, 0, 0.25);
+
+    animation:
+        reviewModalIn
+        0.25s ease;
+
+    scrollbar-width: thin;
+
+    scrollbar-color:
+        #cbd5e1
+        transparent;
+}
+
+
+.review-modal::-webkit-scrollbar {
+    width: 6px;
+}
+
+
+.review-modal::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+
+.review-modal::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+
+    border-radius: 20px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.review-modal-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 24px 28px;
+
+    border-bottom:
+        1px solid #e5e7eb;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f8fafc
+        );
+}
+
+
+.review-modal-header h2 {
+    margin: 0;
+
+    font-size: 23px;
+
+    font-weight: 750;
+
+    color: #111827;
+}
+
+
+.review-close-btn {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #f3f4f6;
+
+    color: #374151;
+
+    font-size: 25px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.review-close-btn:hover {
+    background: #e5e7eb;
+
+    transform: rotate(90deg);
+}
+
+
+.review-close-btn:disabled {
+    opacity: 0.5;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   PRODUCT PREVIEW
+========================================================= */
+
+.review-product {
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    margin: 24px 28px;
+
+    padding: 16px;
+
+    border:
+        1px solid #e5e7eb;
+
+    border-radius: 14px;
+
+    background: #f8fafc;
+}
+
+
+.review-product img {
+    width: 78px;
+
+    height: 78px;
+
+    flex-shrink: 0;
+
+    object-fit: cover;
+
+    border-radius: 12px;
+
+    border:
+        1px solid #e5e7eb;
+
+    background: #ffffff;
+}
+
+
+.review-product h3 {
+    margin: 0 0 6px;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    color: #111827;
+
+    line-height: 1.4;
+}
+
+
+.review-product p {
+    margin: 0;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    color: #6b7280;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.review-modal form {
+    padding: 0 28px 28px;
+}
+
+
+/* =========================================================
+   RATING SECTION
+========================================================= */
+
+.rating-section {
+    margin-bottom: 24px;
+}
+
+
+.rating-section label,
+.comment-section label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    color: #111827;
+}
+
+
+.stars {
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+}
+
+
+.star {
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+
+    color: #d1d5db;
+
+    font-size: 34px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        color 0.15s ease,
+        transform 0.15s ease;
+}
+
+
+.star:hover {
+    color: #fbbf24;
+
+    transform: scale(1.12);
+}
+
+
+.star.active {
+    color: #f59e0b;
+}
+
+
+.star:disabled {
+    cursor: not-allowed;
+}
+
+
+.rating-section > p {
+    margin: 8px 0 0;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #f59e0b;
+}
+
+
+/* =========================================================
+   COMMENT
+========================================================= */
+
+.comment-section {
+    margin-bottom: 22px;
+
+    position: relative;
+}
+
+
+.comment-section textarea {
+    width: 100%;
+
+    min-height: 130px;
+
+    padding: 14px 15px;
+
+    box-sizing: border-box;
+
+    resize: vertical;
+
+    border:
+        1px solid #d1d5db;
+
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    color: #111827;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.comment-section textarea::placeholder {
+    color: #9ca3af;
+}
+
+
+.comment-section textarea:focus {
+    border-color: #111827;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(17, 24, 39, 0.08);
+}
+
+
+.comment-section textarea:disabled {
+    background: #f9fafb;
+
+    cursor: not-allowed;
+}
+
+
+.comment-section small {
+    display: block;
+
+    margin-top: 6px;
+
+    text-align: right;
+
+    color: #9ca3af;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+========================================================= */
+
+.submit-review-btn {
+    width: 100%;
+
+    min-height: 48px;
+
+    padding: 12px 20px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #111827,
+            #1f2937
+        );
+
+    color: #ffffff;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 18px
+        rgba(17, 24, 39, 0.18);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+}
+
+
+.submit-review-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 24px
+        rgba(17, 24, 39, 0.25);
+}
+
+
+.submit-review-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+
+.submit-review-btn:disabled {
+    opacity: 0.5;
+
+    cursor: not-allowed;
+
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes reviewOverlayIn {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+@keyframes reviewModalIn {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(20px)
+            scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .review-modal-overlay {
+        padding: 12px;
+    }
+
+
+    .review-modal {
+        max-height: 94vh;
+
+        border-radius: 16px;
+    }
+
+
+    .review-modal-header {
+        padding: 18px 20px;
+    }
+
+
+    .review-modal-header h2 {
+        font-size: 20px;
+    }
+
+
+    .review-product {
+        margin: 18px 20px;
+
+        padding: 12px;
+    }
+
+
+    .review-product img {
+        width: 64px;
+
+        height: 64px;
+    }
+
+
+    .review-modal form {
+        padding:
+            0 20px 22px;
+    }
+
+
+    .star {
+        font-size: 30px;
+    }
+
+}

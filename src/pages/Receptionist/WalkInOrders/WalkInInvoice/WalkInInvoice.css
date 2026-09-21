@@ -1,0 +1,755 @@
+/* ============================================================
+   WALK-IN INVOICE
+   All classes are uniquely prefixed with "wkinv-"
+   so existing application CSS is not affected.
+   ============================================================ */
+
+.wkinv-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px 18px;
+    overflow-y: auto;
+    background: rgba(15, 23, 42, 0.72);
+    box-sizing: border-box;
+}
+
+.wkinv-overlay *,
+.wkinv-overlay *::before,
+.wkinv-overlay *::after {
+    box-sizing: border-box;
+}
+
+.wkinv-container {
+    width: min(100%, 1040px);
+    min-width: 0;
+    margin: 0 auto 30px;
+    padding: 28px 30px 24px;
+    background: #ffffff;
+    color: #171717;
+    border-radius: 6px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    line-height: 1.35;
+}
+
+/* ============================================================
+   TOP LABEL
+   ============================================================ */
+
+.wkinv-document-top {
+    min-height: 34px;
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    gap: 10px;
+    align-items: center;
+    border-bottom: 1px solid #1f1f1f;
+    padding: 0 4px 8px;
+}
+
+.wkinv-document-title {
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.wkinv-recipient-label {
+    display: inline-flex;
+    width: fit-content;
+    padding: 3px 7px;
+    border: 1px solid #777;
+    border-radius: 2px;
+    font-size: 9px;
+    font-weight: 800;
+    color: #555;
+    text-transform: uppercase;
+}
+
+.wkinv-tagline {
+    justify-self: end;
+    font-size: 10px;
+    font-weight: 700;
+    color: #333;
+}
+
+/* ============================================================
+   COMPANY HEADER
+   ============================================================ */
+
+.wkinv-company-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(270px, 0.95fr);
+    border: 1px solid #222;
+    border-top: 0;
+}
+
+.wkinv-company-left {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 105px minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+    padding: 14px 14px;
+    border-right: 1px solid #222;
+}
+
+.wkinv-logo-wrap {
+    width: 100px;
+    height: 88px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.wkinv-company-logo {
+    display: block;
+    width: 96px;
+    max-width: 100%;
+    height: 78px;
+    object-fit: contain;
+    object-position: center;
+}
+
+.wkinv-company-details {
+    min-width: 0;
+}
+
+.wkinv-company-name {
+    margin: 0 0 3px;
+    font-size: 20px;
+    line-height: 1.1;
+    font-weight: 900;
+    letter-spacing: 0.3px;
+}
+
+.wkinv-company-address {
+    margin: 0 0 6px;
+    max-width: 480px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.wkinv-company-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px 15px;
+}
+
+.wkinv-company-meta-grid p {
+    margin: 0;
+    font-size: 9px;
+    overflow-wrap: anywhere;
+}
+
+.wkinv-company-website {
+    grid-column: 1 / -1;
+}
+
+.wkinv-invoice-meta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 12px 16px;
+    min-width: 0;
+}
+
+.wkinv-meta-row {
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 6px 0;
+    border-bottom: 1px dotted #aaa;
+}
+
+.wkinv-meta-row:last-child {
+    border-bottom: 0;
+}
+
+.wkinv-meta-row span {
+    color: #333;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.wkinv-meta-row strong {
+    font-size: 10px;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+/* ============================================================
+   BILL TO / SHIP TO
+   ============================================================ */
+
+.wkinv-address-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-left: 1px solid #222;
+    border-right: 1px solid #222;
+    border-bottom: 1px solid #222;
+}
+
+.wkinv-address-box {
+    min-width: 0;
+    min-height: 130px;
+    padding: 10px 12px;
+}
+
+.wkinv-address-box + .wkinv-address-box {
+    border-left: 1px solid #222;
+}
+
+.wkinv-box-title,
+.wkinv-bottom-title {
+    margin-bottom: 7px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.3px;
+}
+
+.wkinv-customer-name {
+    margin: 0 0 4px;
+    font-size: 13px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.wkinv-address-box p {
+    margin: 2px 0;
+    font-size: 9px;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+
+/* ============================================================
+   PRODUCT TABLE
+   ============================================================ */
+
+.wkinv-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.wkinv-items-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    border-left: 1px solid #222;
+    border-right: 1px solid #222;
+    border-bottom: 1px solid #222;
+}
+
+.wkinv-items-table th,
+.wkinv-items-table td {
+    border-right: 1px solid #777;
+    border-bottom: 1px solid #777;
+    padding: 7px 7px;
+    vertical-align: top;
+}
+
+.wkinv-items-table th:last-child,
+.wkinv-items-table td:last-child {
+    border-right: 0;
+}
+
+.wkinv-items-table th {
+    background: #e9e9e9;
+    color: #111;
+    font-size: 9px;
+    font-weight: 900;
+    text-align: center;
+    letter-spacing: 0.2px;
+}
+
+.wkinv-items-table td {
+    min-height: 34px;
+    font-size: 9px;
+}
+
+.wkinv-col-sno {
+    width: 7%;
+}
+
+.wkinv-col-product {
+    width: 40%;
+}
+
+.wkinv-col-hsn {
+    width: 12%;
+}
+
+.wkinv-col-qty {
+    width: 9%;
+}
+
+.wkinv-col-rate {
+    width: 16%;
+}
+
+.wkinv-col-amount {
+    width: 16%;
+}
+
+.wkinv-center {
+    text-align: center;
+}
+
+.wkinv-right {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.wkinv-product-cell strong {
+    display: block;
+    font-size: 10px;
+    line-height: 1.25;
+}
+
+.wkinv-item-description {
+    display: block;
+    margin-top: 3px;
+    font-size: 8px;
+    color: #555;
+    line-height: 1.3;
+}
+
+.wkinv-empty-cell {
+    height: 90px;
+    text-align: center;
+    vertical-align: middle !important;
+    color: #666;
+    font-weight: 700;
+}
+
+.wkinv-space-row td {
+    height: 90px;
+}
+
+.wkinv-items-table tfoot td {
+    background: #e6e6e6;
+    font-weight: 900;
+    border-bottom: 0;
+}
+
+.wkinv-total-label {
+    text-align: right;
+    font-size: 10px !important;
+}
+
+.wkinv-total-value {
+    font-size: 10px !important;
+}
+
+/* ============================================================
+   TAX TABLE
+   ============================================================ */
+
+.wkinv-tax-summary {
+    margin-top: 10px;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.wkinv-tax-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    border: 1px solid #222;
+}
+
+.wkinv-tax-table th,
+.wkinv-tax-table td {
+    border: 1px solid #777;
+    padding: 5px 6px;
+    font-size: 8.5px;
+    text-align: center;
+}
+
+.wkinv-tax-table th {
+    background: #ededed;
+    font-weight: 900;
+}
+
+.wkinv-tax-table td {
+    background: #fff;
+}
+
+.wkinv-tax-total-row td {
+    background: #f2f2f2;
+}
+
+/* ============================================================
+   SUMMARY
+   ============================================================ */
+
+.wkinv-summary-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(290px, 0.65fr);
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.wkinv-summary-left {
+    min-width: 0;
+}
+
+.wkinv-payment-card,
+.wkinv-amount-words,
+.wkinv-grand-total-card {
+    border: 1px solid #222;
+}
+
+.wkinv-payment-card {
+    margin-bottom: 10px;
+    padding: 10px 12px;
+}
+
+.wkinv-payment-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    min-height: 25px;
+    border-bottom: 1px dotted #aaa;
+    font-size: 9px;
+}
+
+.wkinv-payment-row:last-child {
+    border-bottom: 0;
+}
+
+.wkinv-payment-row strong {
+    text-transform: uppercase;
+    text-align: right;
+}
+
+.wkinv-amount-words {
+    min-height: 74px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px 12px;
+}
+
+.wkinv-amount-words strong {
+    font-size: 10px;
+}
+
+.wkinv-amount-words span {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.wkinv-grand-total-card {
+    padding: 10px 12px;
+}
+
+.wkinv-grand-row {
+    min-height: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    font-size: 9px;
+}
+
+.wkinv-grand-row strong {
+    white-space: nowrap;
+}
+
+.wkinv-grand-divider {
+    margin: 4px 0;
+    border-top: 1px solid #222;
+}
+
+.wkinv-final-row {
+    padding: 7px 0;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+/* ============================================================
+   BANK / SIGNATURE
+   ============================================================ */
+
+.wkinv-bottom-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr 1fr;
+    margin-top: 12px;
+    border: 1px solid #222;
+}
+
+.wkinv-bank-details,
+.wkinv-authorized-sign,
+.wkinv-receiver-sign {
+    min-width: 0;
+    min-height: 150px;
+    padding: 12px;
+}
+
+.wkinv-authorized-sign,
+.wkinv-receiver-sign {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: center;
+}
+
+.wkinv-authorized-sign {
+    border-left: 1px solid #222;
+    border-right: 1px solid #222;
+}
+
+.wkinv-bank-row {
+    display: grid;
+    grid-template-columns: 90px minmax(0, 1fr);
+    gap: 8px;
+    margin: 5px 0;
+    font-size: 9px;
+}
+
+.wkinv-bank-row span {
+    font-weight: 700;
+}
+
+.wkinv-bank-row strong {
+    overflow-wrap: anywhere;
+}
+
+.wkinv-sign-logo-box {
+    width: 90px;
+    height: 62px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wkinv-sign-logo {
+    width: 84px;
+    height: 58px;
+    object-fit: contain;
+}
+
+.wkinv-sign-line {
+    width: 90%;
+    margin-top: auto;
+    margin-bottom: 5px;
+    font-size: 9px;
+    letter-spacing: -0.2px;
+}
+
+.wkinv-authorized-sign strong,
+.wkinv-receiver-sign strong {
+    font-size: 9px;
+}
+
+.wkinv-authorized-sign span {
+    margin-top: 2px;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.wkinv-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 13px 3px 5px;
+    font-size: 9px;
+}
+
+.wkinv-footer > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.wkinv-footer-right {
+    text-align: right;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.wkinv-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+}
+
+.wkinv-print-btn,
+.wkinv-close-btn {
+    min-width: 150px;
+    min-height: 42px;
+    border: 0;
+    border-radius: 5px;
+    padding: 10px 18px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+}
+
+.wkinv-print-btn {
+    background: #111827;
+}
+
+.wkinv-close-btn {
+    background: #6b7280;
+}
+
+.wkinv-print-btn:hover,
+.wkinv-close-btn:hover {
+    opacity: 0.88;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 850px) {
+    .wkinv-overlay {
+        padding: 12px 8px;
+    }
+
+    .wkinv-container {
+        padding: 18px 14px;
+    }
+
+    .wkinv-company-header {
+        grid-template-columns: 1fr;
+    }
+
+    .wkinv-company-left {
+        border-right: 0;
+        border-bottom: 1px solid #222;
+    }
+
+    .wkinv-address-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .wkinv-address-box + .wkinv-address-box {
+        border-left: 0;
+        border-top: 1px solid #222;
+    }
+
+    .wkinv-summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .wkinv-bottom-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .wkinv-authorized-sign,
+    .wkinv-receiver-sign {
+        border: 0;
+        border-top: 1px solid #222;
+    }
+
+    .wkinv-document-top {
+        grid-template-columns: 1fr;
+        align-items: start;
+    }
+
+    .wkinv-tagline {
+        justify-self: start;
+    }
+
+    .wkinv-footer {
+        flex-direction: column;
+    }
+
+    .wkinv-footer-right {
+        text-align: left;
+    }
+}
+
+@media (max-width: 560px) {
+    .wkinv-company-left {
+        grid-template-columns: 80px minmax(0, 1fr);
+        padding: 10px;
+        gap: 8px;
+    }
+
+    .wkinv-logo-wrap {
+        width: 76px;
+        height: 70px;
+    }
+
+    .wkinv-company-logo {
+        width: 72px;
+        height: 62px;
+    }
+
+    .wkinv-company-name {
+        font-size: 16px;
+    }
+
+    .wkinv-company-meta-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .wkinv-company-website {
+        grid-column: auto;
+    }
+
+    .wkinv-invoice-meta {
+        padding: 10px;
+    }
+
+    .wkinv-items-table {
+        min-width: 720px;
+    }
+
+    .wkinv-tax-table {
+        min-width: 700px;
+    }
+
+    .wkinv-buttons {
+        flex-direction: column;
+    }
+
+    .wkinv-print-btn,
+    .wkinv-close-btn {
+        width: 100%;
+    }
+}
+
+/* ============================================================
+   PRINT
+   ============================================================ */
+
+@media print {
+    .wkinv-buttons {
+        display: none !important;
+    }
+
+    .wkinv-container {
+        box-shadow: none !important;
+    }
+
+    @page {
+        size: A4 portrait;
+        margin: 8mm;
+    }
+}

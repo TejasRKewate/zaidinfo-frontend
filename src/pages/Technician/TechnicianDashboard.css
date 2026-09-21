@@ -1,0 +1,255 @@
+:root {
+  --primary-blue: #3b82f6;
+  --primary-soft: #eff6ff;
+  --bg-page: #f8fafc;
+  --bg-white: #ffffff;
+  --text-dark: #1e293b;
+  --text-muted: #64748b;
+  --text-light: #94a3b8;
+  --border-light: #e2e8f0;
+  --sidebar-w: 240px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.tech-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--bg-page);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Sidebar */
+.tech-sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  background: var(--bg-white);
+  border-right: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.tech-profile {
+  padding: 20px 18px;
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.tech-profile-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.tech-profile-info {
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.tech-profile-info h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  white-space: nowrap;
+}
+
+.tech-badge {
+  background: #dbeafe;
+  color: #2563eb;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+
+}
+
+/* Sidebar Nav */
+.tech-nav-list {
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+}
+
+.tech-nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.tech-nav-item:hover {
+  background-color: #f1f5f9;
+  color: var(--text-dark);
+}
+
+.tech-nav-item.active {
+  background-color: var(--primary-soft);
+  color: var(--primary-blue);
+  font-weight: 600;
+}
+
+.nav-item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-icon {
+  font-size: 1rem;
+  display: flex;
+}
+
+/* Main Content */
+.tech-main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Topbar */
+.tech-topbar {
+  background: var(--bg-white);
+  padding: 16px 36px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.tech-topbar-left h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.tech-topbar-left p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.tech-topbar-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.topbar-bell-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 1.15rem;
+  position: relative;
+  display: flex;
+}
+
+.topbar-bell-btn:hover {
+  color: var(--text-dark);
+}
+
+.topbar-bell-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 0.65rem;
+  border-radius: 10px;
+  padding: 1px 5px;
+  font-weight: 700;
+}
+
+.tech-topbar-date {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.topbar-logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--border-light);
+  background: var(--bg-white);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  transition: all 0.2s;
+}
+
+.topbar-logout-btn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+  border-color: #fca5a5;
+}
+
+.tech-content-body {
+  padding: 32px 48px;
+  flex: 1;
+}
+
+/* Responsiveness for Dashboard */
+@media (max-width: 900px) {
+  .tech-container {
+    flex-direction: column;
+  }
+  .tech-sidebar {
+    width: 100%;
+    min-width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .tech-nav-list {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 8px 12px;
+  }
+  .tech-nav-item {
+    white-space: nowrap;
+    padding: 6px 12px;
+  }
+  .tech-topbar {
+    padding: 12px 20px;
+  }
+  .tech-content-body {
+    padding: 20px 16px;
+  }
+}
+
+@media (max-width: 520px) {
+  .tech-topbar-date,
+  .tech-topbar-left p {
+    display: none;
+  }
+}

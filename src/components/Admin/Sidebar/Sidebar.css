@@ -1,0 +1,1519 @@
+/* =========================================================
+   SIDEBAR
+   COMPACT + DARK THEME + LAPTOP FRIENDLY
+========================================================= */
+
+:root {
+  --sidebar-width: 278px;
+
+  --sidebar-bg: #ffffff;
+  --sidebar-border: #e7ebf0;
+
+  --sidebar-text: #4b5563;
+  --sidebar-muted: #9299a5;
+
+  --sidebar-search-bg: #f6f8fa;
+  --sidebar-search-border: #e1e6eb;
+
+  --sidebar-hover: #f3f5f7;
+
+  --sidebar-active: #2fd46f;
+  --sidebar-active-text: #ffffff;
+
+  --sidebar-section: #9299a5;
+
+  --sidebar-header-bg: #ffffff;
+
+  --notification-bg: #ffffff;
+  --notification-border: #e4e8ed;
+}
+
+
+/* =========================================================
+   DARK THEME
+
+   Supports:
+   html.dark
+   body.dark
+   [data-theme="dark"]
+========================================================= */
+
+html.dark,
+body.dark,
+[data-theme="dark"] {
+
+  --sidebar-bg: #111827;
+  --sidebar-border: #263244;
+
+  --sidebar-text: #d7dde7;
+  --sidebar-muted: #8d98a8;
+
+  --sidebar-search-bg: #1a2537;
+  --sidebar-search-border: #304057;
+
+  --sidebar-hover: #1b273a;
+
+  --sidebar-active: #31d674;
+  --sidebar-active-text: #ffffff;
+
+  --sidebar-section: #8995a7;
+
+  --sidebar-header-bg: #111827;
+
+  --notification-bg: #162033;
+  --notification-border: #304057;
+}
+
+
+/* =========================================================
+   MAIN SIDEBAR
+========================================================= */
+
+.sidebar {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  bottom: 0;
+
+  width: var(--sidebar-width);
+
+  background: var(--sidebar-bg);
+
+  border-right: 1px solid var(--sidebar-border);
+
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+
+  /* IMPORTANT:
+     removed large top spacing */
+  padding: 12px 10px 10px;
+
+  overflow: hidden;
+
+  transition:
+    transform 0.25s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+
+/* =========================================================
+   SIDEBAR SCROLL AREA
+========================================================= */
+
+.sidebar-menu {
+  flex: 1;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding: 3px 3px 12px;
+
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    #31d674
+    transparent;
+}
+
+
+/* Chrome / Edge */
+
+.sidebar-menu::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sidebar-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-menu::-webkit-scrollbar-thumb {
+  background: #31d674;
+  border-radius: 20px;
+}
+
+.sidebar-menu::-webkit-scrollbar-thumb:hover {
+  background: #22c55e;
+}
+
+
+/* =========================================================
+   GLOBAL SEARCH
+========================================================= */
+
+.sidebar-global-search {
+  width: 100%;
+
+  height: 42px;
+
+  min-height: 42px;
+
+  display: flex;
+  align-items: center;
+
+  position: relative;
+
+  box-sizing: border-box;
+
+  margin: 0 0 14px;
+
+  background: var(--sidebar-search-bg);
+
+  border: 1px solid var(--sidebar-search-border);
+
+  border-radius: 10px;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+
+.sidebar-global-search:focus-within {
+  border-color: #31d674;
+}
+
+
+.sidebar-search-icon {
+  position: absolute;
+
+  left: 12px;
+
+  font-size: 19px;
+
+  color: #8a94a3;
+
+  pointer-events: none;
+}
+
+
+.sidebar-global-search input {
+  width: 100%;
+
+  height: 100%;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: var(--sidebar-text);
+
+  font-size: 13px;
+
+  font-family: inherit;
+
+  padding:
+    0 38px
+    0 38px;
+
+  box-sizing: border-box;
+}
+
+
+.sidebar-global-search input::placeholder {
+  color: #8d97a6;
+}
+
+
+.sidebar-search-clear {
+  position: absolute;
+
+  right: 8px;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  width: 26px;
+  height: 26px;
+
+  border: none;
+
+  background: transparent;
+
+  color: #8d97a6;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 6px;
+}
+
+
+.sidebar-search-clear:hover {
+  color: #31d674;
+  background: var(--sidebar-hover);
+}
+
+
+/* =========================================================
+   MENU SECTION
+========================================================= */
+
+.menu-section {
+  margin: 0 0 8px;
+}
+
+
+.menu-title {
+  margin: 10px 10px 5px;
+
+  font-size: 11px;
+
+  line-height: 16px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.7px;
+
+  color: var(--sidebar-section);
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   MENU WRAPPER
+========================================================= */
+
+.sidebar-menu-wrapper {
+  width: 100%;
+
+  position: relative;
+}
+
+
+/* =========================================================
+   MENU ITEM
+
+   COMPACT HEIGHT
+   This is what makes 10-12 items visible
+========================================================= */
+
+.menu-item {
+  width: 100%;
+
+  min-height: 43px;
+  height: 43px;
+
+  padding:
+    0 10px;
+
+  margin: 1px 0;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: transparent;
+
+  color: var(--sidebar-text);
+
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  cursor: pointer;
+
+  font-family: inherit;
+
+  text-align: left;
+
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
+}
+
+
+.menu-item:hover {
+  background: var(--sidebar-hover);
+
+  color: var(--sidebar-text);
+}
+
+
+.menu-item.active {
+  background: var(--sidebar-active);
+
+  color: var(--sidebar-active-text);
+
+  box-shadow:
+    0 5px 13px
+    rgba(49, 214, 116, 0.20);
+}
+
+
+.menu-item:active {
+  transform: scale(0.985);
+}
+
+
+/* =========================================================
+   MENU ICON
+========================================================= */
+
+.menu-item .icon {
+  width: 26px;
+  min-width: 26px;
+
+  height: 26px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 19px;
+
+  color: currentColor;
+}
+
+
+.menu-item .icon svg {
+  font-size: 19px;
+}
+
+
+/* =========================================================
+   MENU TEXT
+========================================================= */
+
+.menu-text {
+  flex: 1;
+
+  min-width: 0;
+
+  font-size: 13.5px;
+
+  line-height: 18px;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   ARROW
+========================================================= */
+
+.menu-arrow {
+  width: 20px;
+  min-width: 20px;
+
+  height: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: currentColor;
+
+  opacity: 0.72;
+
+  transition:
+    transform 0.2s ease;
+}
+
+
+.menu-arrow svg {
+  font-size: 18px;
+}
+
+
+.notification-arrow-open {
+  transform: rotate(90deg);
+}
+
+
+/* =========================================================
+   NOTIFICATION BADGE
+========================================================= */
+
+.notification-count-badge {
+  min-width: 21px;
+  height: 21px;
+
+  padding: 0 6px;
+
+  border-radius: 20px;
+
+  background: #ef4444;
+
+  color: #ffffff;
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  line-height: 1;
+
+  box-shadow:
+    0 2px 6px
+    rgba(239, 68, 68, 0.25);
+}
+
+
+/* =========================================================
+   NO SEARCH RESULT
+========================================================= */
+
+.sidebar-no-results {
+  padding: 35px 12px;
+
+  text-align: center;
+
+  color: var(--sidebar-muted);
+}
+
+
+.sidebar-no-results svg {
+  font-size: 28px;
+
+  margin-bottom: 8px;
+}
+
+
+.sidebar-no-results p {
+  margin: 0 0 4px;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  color: var(--sidebar-text);
+}
+
+
+.sidebar-no-results span {
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   NOTIFICATION PANEL
+========================================================= */
+
+.sidebar-notification-panel {
+  position: absolute;
+
+  left: 4px;
+  right: 4px;
+
+  top: calc(100% + 5px);
+
+  z-index: 1200;
+
+  background: var(--notification-bg);
+
+  border: 1px solid var(--notification-border);
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 15px 40px
+    rgba(0, 0, 0, 0.20);
+
+  overflow: hidden;
+
+  max-height: min(
+    560px,
+    calc(100vh - 130px)
+  );
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* =========================================================
+   NOTIFICATION HEADER
+========================================================= */
+
+.notification-panel-header {
+  min-height: 53px;
+
+  padding: 8px 11px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid
+    var(--notification-border);
+}
+
+
+.notification-panel-header h4 {
+  margin: 0;
+
+  color: var(--sidebar-text);
+
+  font-size: 14px;
+
+  font-weight: 750;
+}
+
+
+.notification-panel-header span {
+  display: block;
+
+  margin-top: 2px;
+
+  color: var(--sidebar-muted);
+
+  font-size: 10px;
+}
+
+
+.notification-refresh-btn {
+  width: 31px;
+  height: 31px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: var(--sidebar-hover);
+
+  color: var(--sidebar-text);
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.notification-refresh-btn:hover {
+  color: #31d674;
+}
+
+
+.notification-refresh-btn svg {
+  font-size: 18px;
+}
+
+
+.notification-refresh-spin {
+  animation:
+    notificationSpin 0.8s linear infinite;
+}
+
+
+@keyframes notificationSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   NOTIFICATION SEARCH
+========================================================= */
+
+.notification-search-box {
+  height: 37px;
+
+  margin: 8px;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  border:
+    1px solid
+    var(--notification-border);
+
+  background:
+    var(--sidebar-search-bg);
+
+  border-radius: 8px;
+}
+
+
+.notification-search-box > svg {
+  margin-left: 10px;
+
+  color: var(--sidebar-muted);
+
+  font-size: 17px;
+}
+
+
+.notification-search-box input {
+  flex: 1;
+
+  min-width: 0;
+
+  height: 100%;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: var(--sidebar-text);
+
+  font-size: 11px;
+
+  padding: 0 8px;
+}
+
+
+.notification-search-box input::placeholder {
+  color: var(--sidebar-muted);
+}
+
+
+.notification-search-clear {
+  width: 26px;
+  height: 26px;
+
+  margin-right: 4px;
+
+  border: none;
+
+  background: transparent;
+
+  color: var(--sidebar-muted);
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* =========================================================
+   NOTIFICATION ACTIONS
+========================================================= */
+
+.notification-panel-actions {
+  min-height: 35px;
+
+  padding: 0 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-top: 1px solid
+    var(--notification-border);
+
+  border-bottom: 1px solid
+    var(--notification-border);
+}
+
+
+.notification-panel-actions > span {
+  color: var(--sidebar-muted);
+
+  font-size: 10px;
+
+  font-weight: 600;
+}
+
+
+.notification-panel-actions button {
+  border: none;
+
+  background: transparent;
+
+  color: #31d674;
+
+  cursor: pointer;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  display: flex;
+  align-items: center;
+
+  gap: 4px;
+}
+
+
+.notification-panel-actions button svg {
+  font-size: 15px;
+}
+
+
+/* =========================================================
+   NOTIFICATION LIST
+========================================================= */
+
+.notification-list {
+  overflow-y: auto;
+
+  max-height: 365px;
+}
+
+
+.notification-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+
+.notification-list::-webkit-scrollbar-thumb {
+  background: #31d674;
+
+  border-radius: 20px;
+}
+
+
+/* =========================================================
+   NOTIFICATION ITEM
+========================================================= */
+
+.notification-item {
+  width: 100%;
+
+  display: flex;
+
+  gap: 9px;
+
+  padding: 10px;
+
+  border: none;
+
+  border-bottom:
+    1px solid
+    var(--notification-border);
+
+  background: transparent;
+
+  color: var(--sidebar-text);
+
+  cursor: pointer;
+
+  text-align: left;
+}
+
+
+.notification-item:hover {
+  background: var(--sidebar-hover);
+}
+
+
+.notification-unread {
+  background:
+    rgba(49, 214, 116, 0.055);
+}
+
+
+.notification-read {
+  opacity: 0.76;
+}
+
+
+/* =========================================================
+   NOTIFICATION ICON
+========================================================= */
+
+.notification-item-icon {
+  width: 30px;
+  min-width: 30px;
+
+  height: 30px;
+
+  border-radius: 8px;
+
+  background:
+    rgba(49, 214, 116, 0.12);
+
+  color: #31d674;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.notification-item-icon svg {
+  font-size: 17px;
+}
+
+
+.notification-unread-dot {
+  position: absolute;
+
+  width: 6px;
+  height: 6px;
+
+  top: -1px;
+  right: -1px;
+
+  border-radius: 50%;
+
+  background: #ef4444;
+
+  border: 2px solid
+    var(--notification-bg);
+}
+
+
+/* =========================================================
+   NOTIFICATION CONTENT
+========================================================= */
+
+.notification-item-content {
+  min-width: 0;
+
+  flex: 1;
+}
+
+
+.notification-item-top {
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+}
+
+
+.notification-item-top strong {
+  flex: 1;
+
+  min-width: 0;
+
+  font-size: 11px;
+
+  font-weight: 750;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+
+.notification-small-dot {
+  font-size: 7px;
+
+  color: #31d674;
+}
+
+
+.notification-item-content > p {
+  margin: 3px 0;
+
+  color: var(--sidebar-muted);
+
+  font-size: 10px;
+
+  line-height: 14px;
+
+  display: -webkit-box;
+
+  -webkit-line-clamp: 2;
+
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+}
+
+
+.notification-item-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 6px;
+}
+
+
+.notification-item-bottom span {
+  color: #31d674;
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+}
+
+
+.notification-item-bottom time {
+  color: var(--sidebar-muted);
+
+  font-size: 8px;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   NOTIFICATION EMPTY
+========================================================= */
+
+.notification-empty-state {
+  padding: 28px 12px;
+
+  text-align: center;
+
+  color: var(--sidebar-muted);
+}
+
+
+.notification-empty-state > svg {
+  font-size: 27px;
+
+  margin-bottom: 6px;
+}
+
+
+.notification-empty-state p {
+  margin: 0 0 3px;
+
+  color: var(--sidebar-text);
+
+  font-size: 11px;
+
+  font-weight: 700;
+}
+
+
+.notification-empty-state span {
+  font-size: 9px;
+}
+
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+.notification-loader {
+  width: 22px;
+  height: 22px;
+
+  margin:
+    0 auto 8px;
+
+  border:
+    2px solid
+    var(--notification-border);
+
+  border-top-color:
+    #31d674;
+
+  border-radius: 50%;
+
+  animation:
+    notificationSpin
+    0.8s linear infinite;
+}
+
+
+/* =========================================================
+   VIEW ALL
+========================================================= */
+
+.notification-view-all {
+  width: 100%;
+
+  min-height: 39px;
+
+  border: none;
+
+  border-top:
+    1px solid
+    var(--notification-border);
+
+  background:
+    var(--notification-bg);
+
+  color: #31d674;
+
+  cursor: pointer;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+}
+
+
+.notification-view-all:hover {
+  background: var(--sidebar-hover);
+}
+
+
+.notification-view-all svg {
+  font-size: 16px;
+}
+
+
+/* =========================================================
+   MOBILE TOGGLE
+========================================================= */
+
+.sidebar-drawer-toggle {
+  display: none;
+
+  position: fixed;
+
+  top: 14px;
+  left: 14px;
+
+  width: 42px;
+  height: 42px;
+
+  z-index: 1500;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #31d674;
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+  align-items: center;
+  justify-content: center;
+
+  box-shadow:
+    0 5px 16px
+    rgba(0, 0, 0, 0.20);
+}
+
+
+.sidebar-drawer-toggle svg {
+  font-size: 22px;
+}
+
+
+/* =========================================================
+   MOBILE CLOSE
+========================================================= */
+
+.sidebar-mobile-close {
+  display: none;
+
+  position: absolute;
+
+  top: 10px;
+  right: 10px;
+
+  width: 32px;
+  height: 32px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: var(--sidebar-hover);
+
+  color: var(--sidebar-text);
+
+  cursor: pointer;
+
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.sidebar-overlay {
+  display: none;
+}
+
+
+/* =========================================================
+   LAPTOP HEIGHT OPTIMIZATION
+
+   768px - 900px height
+========================================================= */
+
+@media (min-width: 769px) and (max-height: 900px) {
+
+  .sidebar {
+    padding-top: 8px;
+    padding-bottom: 6px;
+  }
+
+  .sidebar-global-search {
+    height: 39px;
+    min-height: 39px;
+
+    margin-bottom: 9px;
+  }
+
+  .menu-title {
+    margin-top: 7px;
+    margin-bottom: 3px;
+
+    font-size: 10px;
+  }
+
+  .menu-item {
+    min-height: 39px;
+    height: 39px;
+
+    border-radius: 10px;
+
+    gap: 9px;
+  }
+
+  .menu-item .icon {
+    width: 24px;
+    min-width: 24px;
+  }
+
+  .menu-item .icon svg {
+    font-size: 18px;
+  }
+
+  .menu-text {
+    font-size: 12.5px;
+  }
+
+  .menu-arrow svg {
+    font-size: 16px;
+  }
+
+  .menu-section {
+    margin-bottom: 4px;
+  }
+}
+
+
+/* =========================================================
+   SMALL DESKTOP
+========================================================= */
+
+@media (min-width: 769px) and (max-width: 1200px) {
+
+  .sidebar {
+    width: 250px;
+  }
+
+  .menu-text {
+    font-size: 12.5px;
+  }
+
+  .menu-item {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .sidebar {
+    width: 280px;
+
+    transform:
+      translateX(-105%);
+
+    padding-top: 58px;
+
+    box-shadow:
+      8px 0 30px
+      rgba(0, 0, 0, 0.20);
+  }
+
+
+  .sidebar.sidebar-open {
+    transform:
+      translateX(0);
+  }
+
+
+  .sidebar-drawer-toggle {
+    display: flex;
+  }
+
+
+  .sidebar-mobile-close {
+    display: flex;
+  }
+
+
+  .sidebar-overlay {
+    display: block;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 900;
+
+    background:
+      rgba(0, 0, 0, 0.45);
+
+    backdrop-filter:
+      blur(2px);
+  }
+
+
+  .sidebar-global-search {
+    margin-bottom: 12px;
+  }
+
+
+  .menu-item {
+    height: 43px;
+    min-height: 43px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+
+  .sidebar {
+    width: 270px;
+  }
+}
+
+
+/* =========================================================
+   REDUCE MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .sidebar,
+  .menu-item,
+  .notification-refresh-spin,
+  .notification-loader {
+    animation: none !important;
+
+    transition: none !important;
+  }
+}
+/* =====================================================
+   SIDEBAR LOGOUT
+===================================================== */
+
+.sidebar-logout-wrapper {
+  padding: 12px 14px 18px;
+  margin-top: auto;
+  flex-shrink: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.sidebar-logout-button {
+  width: 100%;
+  min-height: 48px;
+
+  display: flex;
+  align-items: center;
+
+  border: none;
+  border-radius: 10px;
+
+  padding: 0 14px;
+
+  background: transparent;
+  color: #dc2626;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.sidebar-logout-button:hover {
+  background: rgba(220, 38, 38, 0.08);
+  color: #b91c1c;
+}
+
+.sidebar-logout-button:active {
+  transform: scale(0.98);
+}
+
+.sidebar-logout-icon {
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  font-size: 21px;
+}
+
+.sidebar-logout-text {
+  flex: 1;
+
+  text-align: left;
+
+  margin-left: 10px;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.sidebar-logout-arrow {
+  width: 24px;
+  height: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 19px;
+
+  transition: transform 0.2s ease;
+}
+
+.sidebar-logout-button:hover .sidebar-logout-arrow {
+  transform: translateX(3px);
+}
+
+/* =====================================================
+   DESKTOP SIDEBAR TOGGLE
+===================================================== */
+
+.sidebar-desktop-toggle {
+    position: fixed;
+
+    top: 0px;
+    left: 238px;
+
+    width: 40px;
+    height: 40px;
+
+    z-index: 1200;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    color: #374151;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    font-size: 21px;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.12);
+
+    transition:
+        left 0.3s ease,
+        transform 0.2s ease,
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.sidebar-desktop-toggle:hover {
+    background: #f0fdf4;
+    color: #16a34a;
+
+    transform: scale(1.05);
+}
+
+
+.sidebar-desktop-toggle:active {
+    transform: scale(0.95);
+}
+
+
+/* =====================================================
+   WHEN SIDEBAR IS CLOSED
+===================================================== */
+
+.sidebar-desktop-toggle-closed {
+    left: 15px;
+}
+
+
+/* =====================================================
+   DESKTOP SIDEBAR OPEN
+===================================================== */
+
+@media (min-width: 769px) {
+
+    .sidebar.desktop-sidebar-open {
+        transform: translateX(0);
+    }
+
+
+    .sidebar.desktop-sidebar-closed {
+        transform: translateX(-105%);
+    }
+
+}
+
+
+/* =====================================================
+   DESKTOP SIDEBAR TRANSITION
+===================================================== */
+
+@media (min-width: 769px) {
+
+    .sidebar {
+        transition:
+            transform 0.3s ease,
+            width 0.3s ease;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .sidebar-desktop-toggle {
+        display: none;
+    }
+
+}
