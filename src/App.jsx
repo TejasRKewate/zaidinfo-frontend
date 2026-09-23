@@ -271,6 +271,8 @@ import ItSupport from './pages/It-Support/ItSupport.jsx'
 import CusromerTicket from "./pages/It-Support/CusromerTicket.jsx";
 import ItSupportLeave from "./pages/It-Support/ItSupportLeave.jsx";
 import ItSupportSettings from "./pages/It-Support/ItSupportSettings.jsx";
+import AdminRefund from "./pages/Admin/Refund/AdminRefund.jsx";
+import AdminReturn from "./pages/Admin/Return/AdminReturn.jsx";
 // =====================================================
 // APP
 // =====================================================
@@ -427,6 +429,7 @@ const [headerHeight, setHeaderHeight] = useState(150);
         "/coupons",
         "/add-coupon",
 
+        "/admin/inventry",
         // ===============================
         // REVIEWS
         // ===============================
@@ -545,7 +548,11 @@ const [headerHeight, setHeaderHeight] = useState(150);
     location.pathname.startsWith("/employee/dashboard/") ||
 
     location.pathname === "/itsupport-dashboard" ||
-    location.pathname.startsWith("/itsupport-dashboard/");
+    location.pathname.startsWith("/itsupport-dashboard/") ||
+    
+    location.pathname === "/customer-dashboard" ||
+    location.pathname.startsWith("/customer-dashboard/");
+
 
     // =====================================================
     // HIDE WEBSITE HEADER
@@ -786,6 +793,8 @@ const [headerHeight, setHeaderHeight] = useState(150);
                             element={<AvailabilityRequests />}
                         />
 
+                        <Route path='/admin/inventry' element={<InventoryDashboard/>}/>
+
                         {/* =========================================
                             EMPLOYEE
                         ========================================= */}
@@ -989,9 +998,7 @@ const [headerHeight, setHeaderHeight] = useState(150);
                         <Route
                             path="/repairs"
                             element={
-                                <div>
-                                    Repair Jobs Page
-                                </div>
+                                <RepairCustomer/>
                             }
                         />
 
@@ -1001,6 +1008,23 @@ const [headerHeight, setHeaderHeight] = useState(150);
                                 <div>
                                     Add Repair Page
                                 </div>
+                            }
+                        />
+
+                                {/* =========================================
+                            REFUND RETURN
+                        ========================================= */}
+                        
+                        <Route
+                            path="/admin/return"
+                            element={
+                                <AdminReturn/>
+                            }
+                        />
+                        <Route
+                            path="/admin/refund"
+                            element={
+                               <AdminRefund/>
                             }
                         />
 

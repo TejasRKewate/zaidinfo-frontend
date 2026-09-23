@@ -598,10 +598,10 @@ const CustomerDashboard = () => {
               )}&background=ff6b00&color=fff&bold=true`;
             }}
           />
-
-          <h3>{user.fullName}</h3>
-
-          <p>{user.role}</p>
+            <div>
+               <h3>{user.fullName}</h3>
+                <p>{user.role}</p>
+            </div>         
         </div>
 
         <div className="sidebar-title">My Account</div>
