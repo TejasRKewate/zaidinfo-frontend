@@ -373,7 +373,8 @@ const [headerHeight, setHeaderHeight] = useState(150);
         "/admin/coupons",
         "/admin/add-coupon",
 
-        // ===============================
+        "/refund",
+        "/return",        // ===============================
         // ORDERS
         // ===============================
         "/admin/orders",
