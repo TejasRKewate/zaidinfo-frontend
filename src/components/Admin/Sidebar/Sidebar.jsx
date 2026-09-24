@@ -1577,13 +1577,13 @@ function Sidebar({
          {
           name: "Return",
           icon: <MdAssignmentReturn />,
-          path: "/admin/return"
+          path: "/return"
         },
 
         {
           name: "Refund",
           icon: <RiRefund2Fill />, 
-          path: "/admin/refund"
+          path: "/refund"
         },
       ]
     },

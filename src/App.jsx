@@ -1016,13 +1016,13 @@ const [headerHeight, setHeaderHeight] = useState(150);
                         ========================================= */}
                         
                         <Route
-                            path="/admin/return"
+                            path="/return"
                             element={
                                 <AdminReturn/>
                             }
                         />
                         <Route
-                            path="/admin/refund"
+                            path="/refund"
                             element={
                                <AdminRefund/>
                             }
