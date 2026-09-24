@@ -273,6 +273,10 @@ import ItSupportLeave from "./pages/It-Support/ItSupportLeave.jsx";
 import ItSupportSettings from "./pages/It-Support/ItSupportSettings.jsx";
 import AdminRefund from "./pages/Admin/Refund/AdminRefund.jsx";
 import AdminReturn from "./pages/Admin/Return/AdminReturn.jsx";
+
+import TechnicianSettings from './pages/Technician/TechnicianSettings.jsx'
+import TechnicianNotification from './pages/Technician/TechnicianNotification.jsx'
+import TechnicianLeave from './pages/Technician/TechnicianLeave.jsx'
 // =====================================================
 // APP
 // =====================================================
@@ -1523,9 +1527,7 @@ const [headerHeight, setHeaderHeight] = useState(150);
                         <Route
                             path="notifications"
                             element={
-                                <div>
-                                    Notifications Content
-                                </div>
+                                <TechnicianNotification/>
                             }
                         />
 
@@ -1533,9 +1535,13 @@ const [headerHeight, setHeaderHeight] = useState(150);
                         <Route
                             path="settings"
                             element={
-                                <div>
-                                    Settings Content
-                                </div>
+                                <TechnicianSettings/>
+                            }
+                        />
+                         <Route
+                            path="leave"
+                            element={
+                                <TechnicianLeave/>
                             }
                         />
 
