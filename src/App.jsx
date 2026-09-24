@@ -262,7 +262,7 @@ import WalkInRentalDetails from "./pages/rental/WalkInRentalDetails.jsx";
 
 
 import AdminSettings from "./pages/Admin/AdminSettings/AdminSettings.jsx";
-import TechnicianNotification from "./pages/Technician/TechnicianNotification.jsx";
+//import TechnicianNotification from "./pages/Technician/TechnicianNotification.jsx";
 
 import ForgetPassword from './pages/ForgetPassword/ForgetPassword.jsx'
 import ResetPassword from './pages/ForgetPassword/ResetPassword.jsx'
@@ -987,14 +987,7 @@ const [headerHeight, setHeaderHeight] = useState(150);
                             }
                         />
 
-                        <Route
-                            path="/add-rental"
-                            element={
-                                <div>
-                                    Add Rental Page
-                                </div>
-                            }
-                        />
+                        
 
                         {/* =========================================
                             REPAIRS
@@ -1007,16 +1000,8 @@ const [headerHeight, setHeaderHeight] = useState(150);
                             }
                         />
 
-                        <Route
-                            path="/add-repair"
-                            element={
-                                <div>
-                                    Add Repair Page
-                                </div>
-                            }
-                        />
-
-                                {/* =========================================
+                        
+                        {/* =========================================
                             REFUND RETURN
                         ========================================= */}
                         

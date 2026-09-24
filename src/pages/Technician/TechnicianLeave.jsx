@@ -5,7 +5,7 @@ import {
   applyLeave,
   cancelLeave,
   getHolidays,
-} from "../../services/leaveService.js"
+} from "../../services/leaveService.js";
 import "./TechnicianLeave.css";
 
 export default function TechnicianLeave() {
@@ -15,8 +15,6 @@ export default function TechnicianLeave() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
-
 
   const [formData, setFormData] = useState({
     leaveType: "CASUAL",
@@ -37,9 +35,7 @@ export default function TechnicianLeave() {
       if (leavesRes?.success) setLeaves(leavesRes.leaves || []);
       if (holidaysRes?.success) setHolidays(holidaysRes.holidays || []);
     } catch (err) {
-      setError(
-        err.response?.data?.message || "Failed to load leave records."
-      );
+      setError(err.response?.data?.message || "Failed to load leave records.");
     } finally {
       setLoading(false);
     }
@@ -76,13 +72,14 @@ export default function TechnicianLeave() {
       }
     } catch (err) {
       setError(
-        err.response?.data?.message || "Error submitting leave request."
+        err.response?.data?.message || "Error submitting leave request.",
       );
     }
   };
 
   const handleCancel = async (leaveId) => {
-    if (!window.confirm("Are you sure you want to cancel this request?")) return;
+    if (!window.confirm("Are you sure you want to cancel this request?"))
+      return;
 
     try {
       const res = await cancelLeave(leaveId);
@@ -90,9 +87,7 @@ export default function TechnicianLeave() {
         await loadData();
       }
     } catch (err) {
-      alert(
-        err.response?.data?.message || "Failed to cancel leave request."
-      );
+      alert(err.response?.data?.message || "Failed to cancel leave request.");
     }
   };
 
@@ -150,12 +145,16 @@ export default function TechnicianLeave() {
                 <tbody>
                   {leaves.map((item) => (
                     <tr key={item._id}>
-                      <td><strong>{item.leaveType}</strong></td>
+                      <td>
+                        <strong>{item.leaveType}</strong>
+                      </td>
                       <td>{new Date(item.fromDate).toLocaleDateString()}</td>
                       <td>{new Date(item.toDate).toLocaleDateString()}</td>
                       <td>{item.reason}</td>
                       <td>
-                        <span className={`badge-status ${item.status?.toLowerCase()}`}>
+                        <span
+                          className={`badge-status ${item.status?.toLowerCase()}`}
+                        >
                           {item.status}
                         </span>
                       </td>
@@ -253,12 +252,15 @@ export default function TechnicianLeave() {
                 <div key={h._id} className="holiday-chip">
                   <div className="holiday-name">{h.name || h.title}</div>
                   <div className="holiday-date">
-                    {new Date(h.date || h.startDate).toLocaleDateString("en-US", {
-                      weekday: "short",
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
+                    {new Date(h.date || h.startDate).toLocaleDateString(
+                      "en-US",
+                      {
+                        weekday: "short",
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      },
+                    )}
                   </div>
                 </div>
               ))}

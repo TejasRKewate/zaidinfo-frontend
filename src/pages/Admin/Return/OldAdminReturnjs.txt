@@ -117,38 +117,19 @@ const AdminReturn = () => {
   // 6. Open Inspection Modal
   const openInspectModal = (ret) => {
     setInspectingReturn(ret);
-    
-    const initialItems = (ret?.items || []).map((item) => {
-      const productId =
-        (item?.product && typeof item.product === "object"
-          ? item.product._id
-          : item?.product) || null;
-
-      return {
-        productId,
-        title: item?.title || item?.productName || "Product",
-        condition: "GOOD", 
-        inspectionNote: ""
-      };
-    });
+    // Initialize inspection form for each item in the return
+    const initialItems = (ret?.items || []).map((item) => ({
+      productId: item?.product?._id || item?.product || item?._id,
+      title: item?.title || item?.productName || "Product",
+      condition: "GOOD", // Default enum allowed in schema
+      inspectionNote: ""
+    }));
     setInspectionData(initialItems);
   };
 
   // 7. Submit Inspection
   const submitInspection = async () => {
     if (!inspectingReturn) return;
-
-    // Guard: if any item's productId couldn't be resolved, stop here with
-    // a clear message instead of sending a request that will 400.
-    const missing = inspectionData.filter((item) => !item.productId);
-    if (missing.length > 0) {
-      alert(
-        `Could not resolve product for: ${missing
-          .map((m) => m.title)
-          .join(", ")}. Please refresh and try again.`
-      );
-      return;
-    }
 
     // Backend inspectReturnService expects array: inspectedItems
     const payload = {
