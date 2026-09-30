@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./TechnicianSettings.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const TechnicianSettings = () => {
   // State for Profile Info
   const [profile, setProfile] = useState({
@@ -36,7 +38,7 @@ const TechnicianSettings = () => {
           });
         }
 
-        const res = await axios.get("http://localhost:5000/api/newRepair/profile", {
+        const res = await axios.get(`${API_URL}/newRepair/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -79,7 +81,7 @@ const TechnicianSettings = () => {
 
     try {
       const res = await axios.put(
-        "http://localhost:5000/api/newRepair/profile",
+        `${API_URL}/newRepair/profile`,
         {
           name: profile.name,
           email: profile.email,
@@ -138,7 +140,7 @@ const TechnicianSettings = () => {
 
     try {
       const res = await axios.put(
-        "http://localhost:5000/api/newRepair/change-password",
+        `${API_URL}/newRepair/change-password`,
         {
           currentPassword: passwordData.currentPassword,
           newPassword: passwordData.newPassword,

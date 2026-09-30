@@ -1,0 +1,303 @@
+.bank-account-container {
+  width: min(100% - 32px, 900px);
+  margin: 36px auto;
+  color: #172033;
+  font-family: Inter, Arial, sans-serif;
+}
+
+.bank-account-heading,
+.bank-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.bank-account-heading {
+  margin-bottom: 22px;
+}
+
+.bank-account-heading h2,
+.bank-modal-header h2 {
+  margin: 5px 0 0;
+  color: #111827;
+  font-size: 1.6rem;
+}
+
+.bank-eyebrow {
+  color: #64748b;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.bank-update-button,
+.bank-save-button {
+  border: 0;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.bank-update-button {
+  padding: 11px 17px;
+}
+
+.bank-update-button:hover,
+.bank-save-button:hover:not(:disabled) {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.bank-card,
+.bank-empty-state {
+  padding: 26px;
+  border: 1px solid #e5eaf1;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgb(15 23 42 / 6%);
+}
+
+.bank-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #edf0f4;
+}
+
+.bank-icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 12px;
+  background: #eff6ff;
+  font-size: 1.4rem;
+}
+
+.bank-card-header h3 {
+  margin: 0 0 5px;
+  font-size: 1.1rem;
+}
+
+.bank-account-type {
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+.bank-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  padding-top: 22px;
+}
+
+.bank-detail {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+}
+
+.bank-detail span {
+  color: #64748b;
+  font-size: 0.82rem;
+}
+
+.bank-detail strong {
+  overflow-wrap: anywhere;
+  color: #1e293b;
+  font-size: 0.96rem;
+}
+
+.bank-empty-state {
+  text-align: center;
+}
+
+.bank-empty-state h3 {
+  margin: 0 0 8px;
+}
+
+.bank-empty-state p,
+.bank-message {
+  color: #64748b;
+}
+
+.bank-empty-state p {
+  margin: 0;
+}
+
+.bank-loading {
+  margin: 32px;
+  color: #475569;
+}
+
+.bank-modal-backdrop {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgb(15 23 42 / 55%);
+  overflow-y: auto;
+}
+
+.bank-modal {
+  width: min(100%, 620px);
+  max-height: calc(100vh - 40px);
+  padding: 26px;
+  overflow-y: auto;
+  border: 1px solid #e5eaf1;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 24px 70px rgb(15 23 42 / 25%);
+  animation: bank-modal-appear 0.18s ease-out;
+}
+
+@keyframes bank-modal-appear {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bank-modal-header {
+  margin-bottom: 24px;
+}
+
+.bank-modal-close {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 0;
+  border-radius: 8px;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.bank-modal-close:hover {
+  background: #e2e8f0;
+}
+
+.bank-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 17px;
+}
+
+.bank-form-grid label {
+  display: grid;
+  gap: 7px;
+  color: #374151;
+  font-size: 0.87rem;
+  font-weight: 600;
+}
+
+.bank-form-grid input,
+.bank-form-grid select {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  outline: none;
+  background: #fff;
+  color: #172033;
+  font: inherit;
+  font-weight: 400;
+}
+
+.bank-form-grid input:focus,
+.bank-form-grid select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgb(37 99 235 / 14%);
+}
+
+.bank-form-error {
+  margin: 16px 0 0;
+  color: #b91c1c;
+  font-size: 0.9rem;
+}
+
+.bank-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.bank-cancel-button,
+.bank-save-button {
+  min-height: 42px;
+  padding: 10px 16px;
+  border-radius: 7px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.bank-cancel-button {
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #334155;
+}
+
+.bank-cancel-button:hover {
+  background: #f8fafc;
+}
+
+.bank-save-button:disabled,
+.bank-cancel-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+@media (max-width: 600px) {
+  .bank-account-container {
+    width: calc(100% - 24px);
+    margin: 24px auto;
+  }
+
+  .bank-account-heading h2 {
+    font-size: 1.35rem;
+  }
+
+  .bank-card,
+  .bank-empty-state {
+    padding: 20px;
+  }
+
+  .bank-details-grid,
+  .bank-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bank-modal {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 380px) {
+  .bank-account-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .bank-update-button {
+    width: 100%;
+  }
+}

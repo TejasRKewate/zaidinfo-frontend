@@ -2,6 +2,8 @@
 import { useState } from "react";
 import "./ChangePassword.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 const ChangePassword = () => {
   const token = localStorage.getItem("token");
@@ -69,7 +71,7 @@ const ChangePassword = () => {
 
     setLoading(true);
 
-    fetch("http://localhost:5000/api/users/change-password", {
+    fetch(`${API_URL}/users/change-password`, {
       method: "PUT",
       headers: {
         authorization: `Bearer ${token}`,

@@ -1,0 +1,504 @@
+import React, { useState } from "react";
+import "./AddBankAccount.css";
+
+const API_URL =
+  import.meta.env.VITE_API_URL 
+
+const AddBankAccount = ({
+  customerId,
+  onSuccess,
+}) => {
+  const [formData, setFormData] = useState({
+    accountHolderName: "",
+    accountNumber: "",
+    confirmAccountNumber: "",
+    ifscCode: "",
+    bankName: "",
+    branchName: "",
+    accountType: "SAVINGS",
+    isPrimaryForRefund: true,
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+
+  // =================================
+  // HANDLE INPUT CHANGE
+  // =================================
+  const handleChange = (e) => {
+    const {
+      name,
+      value,
+      type,
+      checked,
+    } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]:
+        type === "checkbox"
+          ? checked
+          : value,
+    }));
+  };
+
+  // =================================
+  // RESET FORM
+  // =================================
+  const resetForm = () => {
+    setFormData({
+      accountHolderName: "",
+      accountNumber: "",
+      confirmAccountNumber: "",
+      ifscCode: "",
+      bankName: "",
+      branchName: "",
+      accountType: "SAVINGS",
+      isPrimaryForRefund: true,
+    });
+  };
+
+  // =================================
+  // SUBMIT
+  // =================================
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setErrorMsg("");
+    setSuccessMsg("");
+
+    // ---------------------------------
+    // CUSTOMER ID VALIDATION
+    // ---------------------------------
+    if (!customerId) {
+      setErrorMsg(
+        "Customer ID is missing. Please refresh the page and try again."
+      );
+
+      console.error(
+        "BANK ACCOUNT ERROR: customerId is missing",
+        customerId
+      );
+
+      return;
+    }
+
+    console.log(
+      "Adding bank account for customer:",
+      customerId
+    );
+
+    // ---------------------------------
+    // ACCOUNT NUMBER VALIDATION
+    // ---------------------------------
+    if (
+      formData.accountNumber !==
+      formData.confirmAccountNumber
+    ) {
+      setErrorMsg(
+        "Account number and confirmation do not match."
+      );
+      return;
+    }
+
+    // ---------------------------------
+    // ACCOUNT NUMBER VALIDATION
+    // ---------------------------------
+    if (
+      !/^\d{6,20}$/.test(
+        formData.accountNumber.trim()
+      )
+    ) {
+      setErrorMsg(
+        "Please enter a valid account number."
+      );
+      return;
+    }
+
+    // ---------------------------------
+    // IFSC VALIDATION
+    // ---------------------------------
+    const ifscCode =
+      formData.ifscCode
+        .trim()
+        .toUpperCase();
+
+    const ifscRegex =
+      /^[A-Z]{4}0[A-Z0-9]{6}$/;
+
+    if (!ifscRegex.test(ifscCode)) {
+      setErrorMsg(
+        "Please enter a valid IFSC code (e.g., SBIN0001234)."
+      );
+      return;
+    }
+
+    // ---------------------------------
+    // REQUIRED FIELD VALIDATION
+    // ---------------------------------
+    if (
+      !formData.accountHolderName.trim()
+    ) {
+      setErrorMsg(
+        "Please enter account holder name."
+      );
+      return;
+    }
+
+    if (!formData.bankName.trim()) {
+      setErrorMsg(
+        "Please enter bank name."
+      );
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const token =
+        localStorage.getItem("token");
+
+      if (!token) {
+        throw new Error(
+          "Authentication token is missing. Please login again."
+        );
+      }
+
+      // ---------------------------------
+      // API REQUEST
+      // ---------------------------------
+      const response = await fetch(
+        `${API_URL}/users/${customerId}/bank-accounts`,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+
+          body: JSON.stringify({
+            accountHolderName:
+              formData.accountHolderName.trim(),
+
+            accountNumber:
+              formData.accountNumber.trim(),
+
+            ifscCode,
+
+            bankName:
+              formData.bankName.trim(),
+
+            branchName:
+              formData.branchName.trim(),
+
+            accountType:
+              formData.accountType,
+
+            isPrimaryForRefund:
+              formData.isPrimaryForRefund,
+          }),
+        }
+      );
+
+      // ---------------------------------
+      // READ RESPONSE
+      // ---------------------------------
+      const result =
+        await response.json();
+
+      console.log(
+        "BANK ACCOUNT API RESPONSE:",
+        result
+      );
+
+      // ---------------------------------
+      // ERROR
+      // ---------------------------------
+      if (!response.ok) {
+        throw new Error(
+          result?.message ||
+            result?.error ||
+            "Failed to add bank account."
+        );
+      }
+
+      // ---------------------------------
+      // SUCCESS
+      // ---------------------------------
+      setSuccessMsg(
+        "Bank account saved successfully for refunds."
+      );
+
+      resetForm();
+
+      if (onSuccess) {
+        onSuccess(
+          result?.data || result
+        );
+      }
+    } catch (err) {
+      console.error(
+        "ADD BANK ACCOUNT ERROR:",
+        err
+      );
+
+      setErrorMsg(
+        err.message ||
+          "Something went wrong while saving the bank account."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="bank-card">
+
+      {/* HEADER */}
+      <div className="bank-header">
+
+        <span className="badge-tag">
+          Refund Setup
+        </span>
+
+        <h2 className="bank-title">
+          Add Bank Account
+        </h2>
+
+        <p className="bank-subtitle">
+          Enter verified bank account details
+          to receive customer refunds directly.
+        </p>
+
+      </div>
+
+      {/* ERROR */}
+      {errorMsg && (
+        <div className="bank-alert bank-alert-error">
+          {errorMsg}
+        </div>
+      )}
+
+      {/* SUCCESS */}
+      {successMsg && (
+        <div className="bank-alert bank-alert-success">
+          {successMsg}
+        </div>
+      )}
+
+      <form
+        onSubmit={handleSubmit}
+        className="form-grid"
+      >
+
+        {/* ACCOUNT HOLDER */}
+        <div className="form-group">
+
+          <label className="form-label">
+            Account Holder Name{" "}
+            <span>*</span>
+          </label>
+
+          <input
+            type="text"
+            name="accountHolderName"
+            value={
+              formData.accountHolderName
+            }
+            onChange={handleChange}
+            placeholder="As shown in passbook/cheque"
+            className="form-input"
+            required
+          />
+
+        </div>
+
+        {/* ACCOUNT NUMBERS */}
+        <div className="form-row">
+
+          <div className="form-group">
+
+            <label className="form-label">
+              Account Number{" "}
+              <span>*</span>
+            </label>
+
+            <input
+              type="password"
+              name="accountNumber"
+              value={
+                formData.accountNumber
+              }
+              onChange={handleChange}
+              placeholder="e.g. 123456789012"
+              className="form-input"
+              inputMode="numeric"
+              required
+            />
+
+          </div>
+
+          <div className="form-group">
+
+            <label className="form-label">
+              Confirm Account Number{" "}
+              <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              name="confirmAccountNumber"
+              value={
+                formData.confirmAccountNumber
+              }
+              onChange={handleChange}
+              placeholder="Re-enter account number"
+              className="form-input"
+              inputMode="numeric"
+              required
+            />
+
+          </div>
+
+        </div>
+
+        {/* IFSC + TYPE */}
+        <div className="form-row">
+
+          <div className="form-group">
+
+            <label className="form-label">
+              IFSC Code{" "}
+              <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              name="ifscCode"
+              value={formData.ifscCode}
+              onChange={handleChange}
+              placeholder="SBIN0001234"
+              className="form-input uppercase"
+              maxLength={11}
+              required
+            />
+
+          </div>
+
+          <div className="form-group">
+
+            <label className="form-label">
+              Account Type
+            </label>
+
+            <select
+              name="accountType"
+              value={
+                formData.accountType
+              }
+              onChange={handleChange}
+              className="form-select"
+            >
+              <option value="SAVINGS">
+                Savings Account
+              </option>
+
+              <option value="CURRENT">
+                Current Account
+              </option>
+            </select>
+
+          </div>
+
+        </div>
+
+        {/* BANK + BRANCH */}
+        <div className="form-row">
+
+          <div className="form-group">
+
+            <label className="form-label">
+              Bank Name{" "}
+              <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              name="bankName"
+              value={formData.bankName}
+              onChange={handleChange}
+              placeholder="State Bank of India, HDFC, etc."
+              className="form-input"
+              required
+            />
+
+          </div>
+
+          <div className="form-group">
+
+            <label className="form-label">
+              Branch Name
+            </label>
+
+            <input
+              type="text"
+              name="branchName"
+              value={
+                formData.branchName
+              }
+              onChange={handleChange}
+              placeholder="Branch location (optional)"
+              className="form-input"
+            />
+
+          </div>
+
+        </div>
+
+        {/* PRIMARY ACCOUNT */}
+        <label className="checkbox-container">
+
+          <input
+            type="checkbox"
+            name="isPrimaryForRefund"
+            checked={
+              formData.isPrimaryForRefund
+            }
+            onChange={handleChange}
+          />
+
+          <div className="checkbox-text">
+
+            <strong>
+              Set as default refund account
+            </strong>
+
+            <small>
+              Future automated refunds will
+              be credited directly to this
+              account.
+            </small>
+
+          </div>
+
+        </label>
+
+        {/* SUBMIT */}
+        <button
+          type="submit"
+          disabled={loading || !customerId}
+          className="btn-submit"
+        >
+          {loading
+            ? "Saving Account..."
+            : "Save Bank Details"}
+        </button>
+
+      </form>
+    </div>
+  );
+};
+
+export default AddBankAccount;
