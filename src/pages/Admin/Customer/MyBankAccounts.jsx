@@ -77,6 +77,315 @@
 
 // export default MyBankAccounts;
 
+// import React, { useEffect, useState } from "react";
+// import {
+//   getCustomerBankAccounts,
+//   updateCustomerBankDetails,
+// } from "../../../services/bankAccountService";
+// import "./MyBankAccounts.css";
+
+// const emptyForm = {
+//   bankName: "",
+//   accountHolderName: "",
+//   accountNumber: "",
+//   ifscCode: "",
+//   branchName: "",
+//   accountType: "",
+// };
+
+// const MyBankAccounts = ({ customerId }) => {
+//   const [account, setAccount] = useState(null);
+//   const [loading, setLoading] = useState(true);
+//   const [isModalOpen, setIsModalOpen] = useState(false);
+//   const [formData, setFormData] = useState(emptyForm);
+//   const [saving, setSaving] = useState(false);
+//   const [error, setError] = useState("");
+
+//   useEffect(() => {
+//     if (!customerId) {
+//       setAccount(null);
+//       setLoading(false);
+//       return;
+//     }
+
+//     loadAccount();
+//   }, [customerId]);
+
+//   const loadAccount = async () => {
+//     try {
+//       setLoading(true);
+
+//       const res = await getCustomerBankAccounts(customerId);
+//       console.log("Bank Details:", res);
+
+//       // Supports responses shaped as { success: true, data: ... },
+//       // { data: ... }, or a direct account object/array.
+//       const result = res?.data ?? res;
+//       const bankAccount = Array.isArray(result) ? result[0] : result;
+
+//       setAccount(bankAccount || null);
+//     } catch (err) {
+//       console.error("Bank Account Error:", err);
+//       setAccount(null);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   const openModal = () => {
+//     setFormData({
+//       bankName: account?.bankName || "",
+//       accountHolderName: account?.accountHolderName || "",
+//       accountNumber: account?.accountNumber || "",
+//       ifscCode: account?.ifscCode || "",
+//       branchName: account?.branchName || "",
+//       accountType: account?.accountType || "",
+//     });
+
+//     setError("");
+//     setIsModalOpen(true);
+//   };
+
+//   const handleChange = (event) => {
+//     const { name, value } = event.target;
+//     setFormData((previous) => ({
+//       ...previous,
+//       [name]: value,
+//     }));
+//   };
+
+//   const handleSubmit = async (event) => {
+//     event.preventDefault();
+//     setSaving(true);
+//     setError("");
+
+//     try {
+//       const res = await updateCustomerBankDetails(customerId, formData);
+//       console.log("Updated Bank Details:", res);
+
+//       if (res?.success === false) {
+//         throw new Error(res.message || "Unable to update bank details.");
+//       }
+
+//       // Reload from server in case the update response doesn't include the account.
+//       await loadAccount();
+//       setIsModalOpen(false);
+//     } catch (err) {
+//       console.error("Update Bank Details Error:", err);
+//       setError(
+//         err.response?.data?.message ||
+//           err.message ||
+//           "Unable to update bank details."
+//       );
+//     } finally {
+//       setSaving(false);
+//     }
+//   };
+
+//   if (loading) {
+//     return <h3 className="bank-loading">Loading bank account...</h3>;
+//   }
+
+//   if (!customerId) {
+//     return <p className="bank-message">Customer ID is missing.</p>;
+//   }
+
+//   return (
+//     <div className="bank-account-container">
+//       <div className="bank-account-heading">
+//         <div>
+//           <span className="bank-eyebrow">ACCOUNT SETTINGS</span>
+//           <h2>My Bank Account</h2>
+//         </div>
+
+//         <button
+//           className="bank-update-button"
+//           type="button"
+//           onClick={openModal}
+//         >
+//           {account ? "Update Details" : "Add Bank Details"}
+//         </button>
+//       </div>
+
+//       {!account ? (
+//         <div className="bank-empty-state">
+//           <h3>No Bank Account Found</h3>
+//           <p>Add your bank details to get started.</p>
+//         </div>
+//       ) : (
+//         <div className="bank-card">
+//           <div className="bank-card-header">
+//             <div className="bank-icon" aria-hidden="true">
+//               🏦
+//             </div>
+//             <div>
+//               <h3>{account.bankName || "Bank Account"}</h3>
+//               <span className="bank-account-type">
+//                 {account.accountType || "Account"}
+//               </span>
+//             </div>
+//           </div>
+
+//           <div className="bank-details-grid">
+//             <div className="bank-detail">
+//               <span>Account Holder</span>
+//               <strong>{account.accountHolderName || "N/A"}</strong>
+//             </div>
+
+//             <div className="bank-detail">
+//               <span>Account Number</span>
+//               <strong>{account.accountNumber || "N/A"}</strong>
+//             </div>
+
+//             <div className="bank-detail">
+//               <span>IFSC</span>
+//               <strong>{account.ifscCode || "N/A"}</strong>
+//             </div>
+
+//             <div className="bank-detail">
+//               <span>Branch</span>
+//               <strong>{account.branchName || "N/A"}</strong>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+
+//       {isModalOpen && (
+//         <div
+//           className="bank-modal-backdrop"
+//           onMouseDown={(event) => {
+//             if (event.target === event.currentTarget) {
+//               setIsModalOpen(false);
+//             }
+//           }}
+//         >
+//           <section
+//             className="bank-modal"
+//             role="dialog"
+//             aria-modal="true"
+//             aria-labelledby="bank-modal-title"
+//           >
+//             <div className="bank-modal-header">
+//               <div>
+//                 <span className="bank-eyebrow">ACCOUNT SETTINGS</span>
+//                 <h2 id="bank-modal-title">
+//                   {account ? "Update Bank Details" : "Add Bank Details"}
+//                 </h2>
+//               </div>
+
+//               <button
+//                 className="bank-modal-close"
+//                 type="button"
+//                 aria-label="Close modal"
+//                 onClick={() => setIsModalOpen(false)}
+//               >
+//                 &times;
+//               </button>
+//             </div>
+
+//             <form onSubmit={handleSubmit}>
+//               <div className="bank-form-grid">
+//                 <label>
+//                   Bank Name
+//                   <input
+//                     name="bankName"
+//                     value={formData.bankName}
+//                     onChange={handleChange}
+//                     required
+//                   />
+//                 </label>
+
+//                 <label>
+//                   Account Holder Name
+//                   <input
+//                     name="accountHolderName"
+//                     value={formData.accountHolderName}
+//                     onChange={handleChange}
+//                     required
+//                   />
+//                 </label>
+
+//                 <label>
+//                   Account Number
+//                   <input
+//                     name="accountNumber"
+//                     value={formData.accountNumber}
+//                     onChange={handleChange}
+//                     inputMode="numeric"
+//                     required
+//                   />
+//                 </label>
+
+//                 <label>
+//                   IFSC Code
+//                   <input
+//                     name="ifscCode"
+//                     value={formData.ifscCode}
+//                     onChange={handleChange}
+//                     required
+//                   />
+//                 </label>
+
+//                 <label>
+//                   Branch
+//                   <input
+//                     name="branchName"
+//                     value={formData.branchName}
+//                     onChange={handleChange}
+//                     required
+//                   />
+//                 </label>
+
+//                 <label>
+//                   Account Type
+//                   <select
+//                     name="accountType"
+//                     value={formData.accountType}
+//                     onChange={handleChange}
+//                     required
+//                   >
+//                     <option value="">Select account type</option>
+//                     <option value="Savings">Savings</option>
+//                     <option value="Current">Current</option>
+//                   </select>
+//                 </label>
+//               </div>
+
+//               {error && (
+//                 <p className="bank-form-error" role="alert">
+//                   {error}
+//                 </p>
+//               )}
+
+//               <div className="bank-modal-actions">
+//                 <button
+//                   className="bank-cancel-button"
+//                   type="button"
+//                   onClick={() => setIsModalOpen(false)}
+//                   disabled={saving}
+//                 >
+//                   Cancel
+//                 </button>
+
+//                 <button
+//                   className="bank-save-button"
+//                   type="submit"
+//                   disabled={saving}
+//                 >
+//                   {saving ? "Saving..." : "Save Details"}
+//                 </button>
+//               </div>
+//             </form>
+//           </section>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default MyBankAccounts;
+
+
 import React, { useEffect, useState } from "react";
 import {
   getCustomerBankAccounts,
@@ -90,11 +399,12 @@ const emptyForm = {
   accountNumber: "",
   ifscCode: "",
   branchName: "",
-  accountType: "",
+  accountType: "SAVINGS",
+  isPrimaryForRefund: false,
 };
 
 const MyBankAccounts = ({ customerId }) => {
-  const [account, setAccount] = useState(null);
+  const [accounts, setAccounts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState(emptyForm);
@@ -103,43 +413,45 @@ const MyBankAccounts = ({ customerId }) => {
 
   useEffect(() => {
     if (!customerId) {
-      setAccount(null);
+      setAccounts([]);
       setLoading(false);
       return;
     }
 
-    loadAccount();
+    loadAccounts();
   }, [customerId]);
 
-  const loadAccount = async () => {
+  const loadAccounts = async () => {
     try {
       setLoading(true);
 
-      const res = await getCustomerBankAccounts(customerId);
-      console.log("Bank Details:", res);
+      const response = await getCustomerBankAccounts(customerId);
 
-      // Supports responses shaped as { success: true, data: ... },
-      // { data: ... }, or a direct account object/array.
-      const result = res?.data ?? res;
-      const bankAccount = Array.isArray(result) ? result[0] : result;
+      console.log("Bank API Response:", response);
 
-      setAccount(bankAccount || null);
-    } catch (err) {
-      console.error("Bank Account Error:", err);
-      setAccount(null);
+      let bankAccounts = [];
+
+      if (response?.data?.success) {
+        bankAccounts = response.data.data || [];
+      } else if (Array.isArray(response?.data)) {
+        bankAccounts = response.data;
+      } else if (Array.isArray(response)) {
+        bankAccounts = response;
+      }
+
+      setAccounts(Array.isArray(bankAccounts) ? bankAccounts : []);
+    } catch (error) {
+      console.error("Bank Account Error:", error);
+      setAccounts([]);
     } finally {
       setLoading(false);
     }
   };
 
-  const openModal = () => {
+  const openAddModal = () => {
     setFormData({
-      bankName: account?.bankName || "",
-      accountHolderName: account?.accountHolderName || "",
-      accountNumber: account?.accountNumber || "",
-      ifscCode: account?.ifscCode || "",
-      branchName: account?.branchName || "",
-      accountType: account?.accountType || "",
+      ...emptyForm,
+      isPrimaryForRefund: accounts.length === 0,
     });
 
     setError("");
@@ -147,35 +459,34 @@ const MyBankAccounts = ({ customerId }) => {
   };
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((previous) => ({
-      ...previous,
-      [name]: value,
+    const { name, value, type, checked } = event.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setSaving(true);
-    setError("");
 
     try {
-      const res = await updateCustomerBankDetails(customerId, formData);
-      console.log("Updated Bank Details:", res);
+      setSaving(true);
+      setError("");
 
-      if (res?.success === false) {
-        throw new Error(res.message || "Unable to update bank details.");
-      }
+      await updateCustomerBankDetails(customerId, formData);
 
-      // Reload from server in case the update response doesn't include the account.
-      await loadAccount();
+      await loadAccounts();
+
+      setFormData(emptyForm);
       setIsModalOpen(false);
-    } catch (err) {
-      console.error("Update Bank Details Error:", err);
+    } catch (error) {
+      console.error(error);
+
       setError(
-        err.response?.data?.message ||
-          err.message ||
-          "Unable to update bank details."
+        error?.response?.data?.message ||
+          error?.message ||
+          "Unable to save bank account."
       );
     } finally {
       setSaving(false);
@@ -183,11 +494,7 @@ const MyBankAccounts = ({ customerId }) => {
   };
 
   if (loading) {
-    return <h3 className="bank-loading">Loading bank account...</h3>;
-  }
-
-  if (!customerId) {
-    return <p className="bank-message">Customer ID is missing.</p>;
+    return <h3 className="bank-loading">Loading bank accounts...</h3>;
   }
 
   return (
@@ -195,188 +502,146 @@ const MyBankAccounts = ({ customerId }) => {
       <div className="bank-account-heading">
         <div>
           <span className="bank-eyebrow">ACCOUNT SETTINGS</span>
-          <h2>My Bank Account</h2>
+          <h2>My Bank Accounts</h2>
         </div>
 
         <button
-          className="bank-update-button"
           type="button"
-          onClick={openModal}
+          className="bank-update-button"
+          onClick={openAddModal}
         >
-          {account ? "Update Details" : "Add Bank Details"}
+          + Add Bank Account
         </button>
       </div>
 
-      {!account ? (
+      {accounts.length === 0 ? (
         <div className="bank-empty-state">
-          <h3>No Bank Account Found</h3>
-          <p>Add your bank details to get started.</p>
+          <h3>No Bank Accounts Found</h3>
+          <p>Add a bank account to receive refunds.</p>
         </div>
       ) : (
-        <div className="bank-card">
-          <div className="bank-card-header">
-            <div className="bank-icon" aria-hidden="true">
-              🏦
-            </div>
-            <div>
-              <h3>{account.bankName || "Bank Account"}</h3>
-              <span className="bank-account-type">
-                {account.accountType || "Account"}
-              </span>
-            </div>
-          </div>
+        <div className="bank-cards-grid">
+          {accounts.map((account, index) => (
+            <div
+              key={account._id || account.accountNumber || index}
+              className={`bank-card ${
+                account.isPrimaryForRefund ? "bank-card-primary" : ""
+              }`}
+            >
+              <div className="bank-card-header">
+                <h3>{account.bankName}</h3>
 
-          <div className="bank-details-grid">
-            <div className="bank-detail">
-              <span>Account Holder</span>
-              <strong>{account.accountHolderName || "N/A"}</strong>
-            </div>
+                {account.isPrimaryForRefund && (
+                  <span className="bank-badge-primary">Primary</span>
+                )}
+              </div>
 
-            <div className="bank-detail">
-              <span>Account Number</span>
-              <strong>{account.accountNumber || "N/A"}</strong>
-            </div>
+              <div className="bank-details-grid">
+                <div className="bank-detail">
+                  <span>Account Holder</span>
+                  <strong>{account.accountHolderName}</strong>
+                </div>
 
-            <div className="bank-detail">
-              <span>IFSC</span>
-              <strong>{account.ifscCode || "N/A"}</strong>
-            </div>
+                <div className="bank-detail">
+                  <span>Account Number</span>
+                  <strong>
+                    {account.accountNumber
+                      ? `•••• ${account.accountNumber.slice(-4)}`
+                      : "N/A"}
+                  </strong>
+                </div>
 
-            <div className="bank-detail">
-              <span>Branch</span>
-              <strong>{account.branchName || "N/A"}</strong>
+                <div className="bank-detail">
+                  <span>IFSC</span>
+                  <strong>{account.ifscCode}</strong>
+                </div>
+
+                <div className="bank-detail">
+                  <span>Branch</span>
+                  <strong>{account.branchName || "N/A"}</strong>
+                </div>
+
+                <div className="bank-detail">
+                  <span>Type</span>
+                  <strong>{account.accountType}</strong>
+                </div>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       )}
 
       {isModalOpen && (
-        <div
-          className="bank-modal-backdrop"
-          onMouseDown={(event) => {
-            if (event.target === event.currentTarget) {
-              setIsModalOpen(false);
-            }
-          }}
-        >
-          <section
-            className="bank-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="bank-modal-title"
-          >
-            <div className="bank-modal-header">
-              <div>
-                <span className="bank-eyebrow">ACCOUNT SETTINGS</span>
-                <h2 id="bank-modal-title">
-                  {account ? "Update Bank Details" : "Add Bank Details"}
-                </h2>
-              </div>
-
-              <button
-                className="bank-modal-close"
-                type="button"
-                aria-label="Close modal"
-                onClick={() => setIsModalOpen(false)}
-              >
-                &times;
-              </button>
-            </div>
+        <div className="bank-modal-backdrop">
+          <div className="bank-modal">
+            <h2>Add Bank Account</h2>
 
             <form onSubmit={handleSubmit}>
-              <div className="bank-form-grid">
-                <label>
-                  Bank Name
-                  <input
-                    name="bankName"
-                    value={formData.bankName}
-                    onChange={handleChange}
-                    required
-                  />
-                </label>
+              <input
+                name="bankName"
+                placeholder="Bank Name"
+                value={formData.bankName}
+                onChange={handleChange}
+                required
+              />
 
-                <label>
-                  Account Holder Name
-                  <input
-                    name="accountHolderName"
-                    value={formData.accountHolderName}
-                    onChange={handleChange}
-                    required
-                  />
-                </label>
+              <input
+                name="accountHolderName"
+                placeholder="Account Holder Name"
+                value={formData.accountHolderName}
+                onChange={handleChange}
+                required
+              />
 
-                <label>
-                  Account Number
-                  <input
-                    name="accountNumber"
-                    value={formData.accountNumber}
-                    onChange={handleChange}
-                    inputMode="numeric"
-                    required
-                  />
-                </label>
+              <input
+                name="accountNumber"
+                placeholder="Account Number"
+                value={formData.accountNumber}
+                onChange={handleChange}
+                required
+              />
 
-                <label>
-                  IFSC Code
-                  <input
-                    name="ifscCode"
-                    value={formData.ifscCode}
-                    onChange={handleChange}
-                    required
-                  />
-                </label>
+              <input
+                name="ifscCode"
+                placeholder="IFSC Code"
+                value={formData.ifscCode}
+                onChange={handleChange}
+                required
+              />
 
-                <label>
-                  Branch
-                  <input
-                    name="branchName"
-                    value={formData.branchName}
-                    onChange={handleChange}
-                    required
-                  />
-                </label>
+              <input
+                name="branchName"
+                placeholder="Branch Name"
+                value={formData.branchName}
+                onChange={handleChange}
+              />
 
-                <label>
-                  Account Type
-                  <select
-                    name="accountType"
-                    value={formData.accountType}
-                    onChange={handleChange}
-                    required
-                  >
-                    <option value="">Select account type</option>
-                    <option value="Savings">Savings</option>
-                    <option value="Current">Current</option>
-                  </select>
-                </label>
-              </div>
+              <select
+                name="accountType"
+                value={formData.accountType}
+                onChange={handleChange}
+              >
+                <option value="SAVINGS">Savings</option>
+                <option value="CURRENT">Current</option>
+              </select>
 
-              {error && (
-                <p className="bank-form-error" role="alert">
-                  {error}
-                </p>
-              )}
+              <label>
+                <input
+                  type="checkbox"
+                  name="isPrimaryForRefund"
+                  checked={formData.isPrimaryForRefund}
+                  onChange={handleChange}
+                />
+                Primary Refund Account
+              </label>
 
-              <div className="bank-modal-actions">
-                <button
-                  className="bank-cancel-button"
-                  type="button"
-                  onClick={() => setIsModalOpen(false)}
-                  disabled={saving}
-                >
-                  Cancel
-                </button>
+              {error && <p className="bank-form-error">{error}</p>}
 
-                <button
-                  className="bank-save-button"
-                  type="submit"
-                  disabled={saving}
-                >
-                  {saving ? "Saving..." : "Save Details"}
-                </button>
-              </div>
+              <button type="submit" disabled={saving}>
+                {saving ? "Saving..." : "Add Account"}
+              </button>
             </form>
-          </section>
+          </div>
         </div>
       )}
     </div>

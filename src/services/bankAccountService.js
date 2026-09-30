@@ -73,7 +73,7 @@ export const getCustomerBankAccountById = async (customerId, accountId) => {
 };
 
 export const updateCustomerBankDetails = async (customerId, bankDetails) => {
-    const response = await axios.patch(
+    const response = await axios.put(
         `${API}/users/customer/${customerId}/bank-details`,
         bankDetails,
         getAuthHeaders()

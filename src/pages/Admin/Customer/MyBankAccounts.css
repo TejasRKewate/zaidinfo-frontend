@@ -301,3 +301,46 @@
     width: 100%;
   }
 }
+
+
+
+.bank-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.bank-card-primary {
+  border: 1.5px solid #2563eb;
+  position: relative;
+}
+
+.bank-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bank-badge-primary {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+}
+
+.bank-form-checkbox {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.bank-form-checkbox label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
